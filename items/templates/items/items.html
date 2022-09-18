@@ -1,0 +1,14 @@
+{% block content %}
+  <p>Items:</p>
+
+  <ul>
+      {% for item in items %}
+        <li>
+            <a href="{% url 'items:item' item.id %}">{{ item.name }}</a>
+        </li>
+      {% empty %}
+        <li>No items</li>
+      {% endfor %}
+  </ul>
+
+{% endblock content %}
