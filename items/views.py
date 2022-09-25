@@ -32,7 +32,7 @@ def index(request):
 
 
 def thanks(request):
-    return render(request, 'thanks.html')
+    return render(request, 'items/thanks.html')
 
 
 @csrf_exempt
