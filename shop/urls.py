@@ -24,7 +24,5 @@ urlpatterns = [
     path('', index, name='index'),
     path('thanks/', thanks, name='thanks'),
     path('checkout/<int:item_id>/', checkout, name='checkout'),
-    path('stripe_webhook/', stripe_webhook, name='stripe_webhook')
-    # path('create-checkout-session/<int:item_id>/', CreateCheckoutSessionView.as_view(), name='create-checkout-session'),
-    # path('create-payment-intent/<int:item_id>/', StripeIntentView.as_view(), name='create-payment-intent'),
+    path('stripe_webhook/', stripe_webhook, name='stripe_webhook'),
 ]
