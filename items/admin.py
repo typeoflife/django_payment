@@ -1,8 +1,13 @@
 from django.contrib import admin
-from items.models import Item
+from items.models import Item, Price
 
 
-class AuthorAdmin(admin.ModelAdmin):
-    list_display = ('name', 'description', 'price')
+class PriceInlineAdmin(admin.TabularInline):
+    model = Price
+    extra = 0
 
-admin.site.register(Item, AuthorAdmin)
+
+class ItemAdmin(admin.ModelAdmin):
+    inlines = [PriceInlineAdmin]
+
+admin.site.register(Item, ItemAdmin)

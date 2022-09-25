@@ -1,45 +1,39 @@
 {% load static %}
 <html lang="en">
-<head>
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Товары</title>
+    <title>Магазин</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="{% static 'narrow-jumbotron.css' %}" rel="stylesheet">
-</head>
+  </head>
 
-<body>
+  <body>
 
-<div class="container">
-    <div class="header clearfix">
+
+    <div class="container">
+      <div class="header clearfix">
         <nav>
-            <ul class="nav nav-pills float-right">
-            </ul>
-
-
+          <ul class="nav nav-pills float-right">
+            <li class="nav-item">
+              <a class="nav-link active" href="/item/">За покупками</a>
+            </li>
+          </ul>
         </nav>
         <h3 class="text-muted">Магазин</h3>
-    </div>
-
-    {% for item in items %}
-    <li>
-        <a href="{% url 'items:item' item.id %}">{{ item.name }}</a>
-    </li>
-    {% empty %}
-    <li>Нет товаров</li>
-    {% endfor %}
+      </div>
 
 
-    <footer class="footer">
+      <footer class="footer">
         <p>&copy; Магазин MegaMarket 2022</p>
-    </footer>
-</div> <!-- /container -->
-</body>
+      </footer>
+    </div> <!-- /container -->
+  </body>
 </html>
