@@ -14,6 +14,3 @@ class Price(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     stripe_price_id = models.CharField(verbose_name='ID цены товара в базе stripe', max_length=100)
     price = models.PositiveIntegerField(verbose_name='Цена')
-
-    def get_display_price(self):
-        return self.price
