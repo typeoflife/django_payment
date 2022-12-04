@@ -54,29 +54,3 @@ def buy(request, item_id):
         'session_id': session.id,
         'stripe_public_key': settings.STRIPE_PUBLIC_KEY
     })
-<<<<<<< HEAD
-=======
-
-
-@csrf_exempt
-def stripe_webhook(request):
-    endpoint_secret = 'whsec_Xj8wBk2qiUcjDEmYu5kfKkOrJCJ5UUjW'
-
-    payload = request.body
-    sig_header = request.META['HTTP_STRIPE_SIGNATURE']
-    event = None
-
-    try:
-        event = stripe.Webhook.construct_event(
-            payload, sig_header, endpoint_secret
-        )
-    except ValueError as e:
-        return HttpResponse(status=400)
-    except stripe.error.SignatureVerificationError as e:
-        return HttpResponse(status=400)
-
-
-    if event['type'] == 'checkout.session.completed':
-        session = event['data']['object']
-        line_items = stripe.checkout.Session.list_line_items(session['id'], limit=1)
->>>>>>> 3a567effab3549c347af87290823c4f0db7e4355
