@@ -19,22 +19,18 @@
 
 <div class="container">
     <div class="header clearfix">
-        <nav>
-            <ul class="nav nav-pills float-right">
-            </ul>
-
-
-        </nav>
         <h3 class="text-muted">Магазин</h3>
     </div>
 
-    {% for item in items %}
-    <li>
-        <a href="{% url 'items:item' item.id %}">{{ item.name }}</a>
-    </li>
-    {% empty %}
-    <li>Нет товаров</li>
-    {% endfor %}
+    <div class="items">
+        {% for item in items %}
+        <li>
+            <a href="{% url 'items:item' item.id %}">{{ item.name }}</a>
+        </li>
+        {% empty %}
+        <li>Нет товаров</li>
+        {% endfor %}
+    </div>
 
 
     <footer class="footer">

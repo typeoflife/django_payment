@@ -16,15 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from items.views import checkout, thanks, stripe_webhook, index
+from items.views import buy, thanks, index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('item/', include('items.urls')),
     path('', index, name='index'),
     path('thanks/', thanks, name='thanks'),
-    path('checkout/<int:item_id>/', checkout, name='checkout'),
-    path('stripe_webhook/', stripe_webhook, name='stripe_webhook')
-    # path('create-checkout-session/<int:item_id>/', CreateCheckoutSessionView.as_view(), name='create-checkout-session'),
-    # path('create-payment-intent/<int:item_id>/', StripeIntentView.as_view(), name='create-payment-intent'),
+    path('buy/<int:item_id>/', buy, name='buy'),
 ]
