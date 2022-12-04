@@ -23,5 +23,10 @@ urlpatterns = [
     path('item/', include('items.urls')),
     path('', index, name='index'),
     path('thanks/', thanks, name='thanks'),
+<<<<<<< HEAD
     path('buy/<int:item_id>/', buy, name='buy'),
+=======
+    path('checkout/<int:item_id>/', checkout, name='checkout'),
+    path('stripe_webhook/', stripe_webhook, name='stripe_webhook'),
+>>>>>>> 3a567effab3549c347af87290823c4f0db7e4355
 ]

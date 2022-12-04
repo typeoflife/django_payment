@@ -13,4 +13,7 @@ class Item(models.Model):
 
 class Price(models.Model):
     price = models.PositiveIntegerField(verbose_name='Цена')
+<<<<<<< HEAD
     stripe_price_id = models.CharField(verbose_name='ID цены товара в базе stripe', max_length=100)
+=======
+>>>>>>> 3a567effab3549c347af87290823c4f0db7e4355
