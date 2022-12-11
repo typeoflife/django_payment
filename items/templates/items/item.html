@@ -3,8 +3,6 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
 
     <title>Магазин</title>
 
@@ -33,7 +31,12 @@
         <h1 class="display-3">{{ item.name }}</h1>
         <p class="desc"> {{ item.description }} </p>
         <p class="lead">Стоимость {{ price.price }} р.</p>
+        <p class="quantity">Количество: </p>
+        <form name="quantity">
+          <input type="number" id="quantity" value="1"  min="1"/>
+        </form>
         <button id="buy-button" class="btn btn-primary">Buy</button>
+        <button id="add_order-button" class="btn btn-primary">Add Order</button>
       </div>
 
       <script src="https://js.stripe.com/v3/"></script>
@@ -41,10 +44,14 @@
 
       <script>
 
-        const buy_now_button = document.querySelector('#buy-button')
 
+        const buy_now_button = document.querySelector('#buy-button')
         buy_now_button.addEventListener('click', event => {
-          fetch('/buy/{{item.id}}', {method: 'GET'})
+          let quantity = document.getElementById("quantity").value;
+          if( !(quantity > 0)) {
+            quantity = 1;
+          }
+          fetch('/buy/{{item.id}}/', {method: 'POST', body: quantity})
           .then((result) => { return result.json() })
           .then((data) => {
             var stripe = Stripe(data.stripe_public_key);
@@ -54,6 +61,8 @@
             });
           })
         })
+
+
       </script>
 
 

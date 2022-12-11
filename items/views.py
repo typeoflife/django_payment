@@ -1,3 +1,5 @@
+import json
+
 import stripe
 from django.conf import settings
 from django.http import JsonResponse, HttpResponse
@@ -19,7 +21,7 @@ def items_list(request):
 def get_item(request, item_id):
     template = 'items/item.html'
     item = Item.objects.get(id=item_id)
-    price = Price.objects.get(item=item)
+    price = Price.objects.get(item=item.id)
     context = {
         'item': item,
         'price': price,
@@ -36,14 +38,15 @@ def thanks(request):
 
 
 @csrf_exempt
-def buy(request, item_id):
+def buy(request, item_id, quantity=1):
+    quantity = json.loads(request.body)
     item = Item.objects.get(id=item_id)
-    price = Price.objects.get(item=item)
+    price = Price.objects.get(item=item.id)
     session = stripe.checkout.Session.create(
         payment_method_types=['card'],
         line_items=[{
             'price': price.stripe_price_id,
-            'quantity': 1,
+            'quantity': quantity,
         }],
         mode='payment',
         success_url=request.build_absolute_uri(reverse('thanks')),
