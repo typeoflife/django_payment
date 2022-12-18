@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Магазин</title>
+    <title>Shop</title>
+
 
     <!-- Bootstrap core CSS -->
     <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">
@@ -15,21 +16,26 @@
 
   <body>
 
+
     <div class="container">
       <div class="header clearfix">
         <nav>
           <ul class="nav nav-pills float-right">
-            <li class="nav-item">
-              <a class="nav-link active" href="/item/">За покупками</a>
+            <li class="nav-item" style="display: flex;">
+              <a class="nav-link active" href="/item/" style="margin: 0 10px;">Items</a>
+              <a class="nav-link active" href="/order/"  style="margin: 0 10px;">My order</a>
             </li>
           </ul>
         </nav>
-        <h3 class="text-muted">Магазин</h3>
+        <h3 class="text-muted">Shop</h3>
       </div>
+
+      {% block content %}
+      {% endblock %}
 
 
       <footer class="footer">
-        <p>&copy; Магазин MegaMarket 2022</p>
+        <p>&copy; Shop MegaMarket 2022</p>
       </footer>
     </div> <!-- /container -->
   </body>

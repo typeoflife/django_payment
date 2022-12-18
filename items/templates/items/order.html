@@ -1,0 +1,26 @@
+{% extends 'items/index.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="jumbotron">
+      <h3 class="text-muted">Order list:</h3>
+      <div class="orders">
+        {% for position in order %}
+        <li class="my-row" style="  display:flex;">
+            <p class="desc"> Item: {{ position.item_id }} Quantity: {{ position.quantity }}</p>
+            {% empty %}
+        <li>No orders</li>
+          {% endfor %}
+        </li>
+      </div>
+      <button id="buy-button" class="btn btn-primary">Place an order</button>
+    </div>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+    <script src="{% static 'custom.js' %}"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+
+{% endblock %}

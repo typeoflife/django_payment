@@ -16,3 +16,8 @@ class Price(models.Model):
 
     def __str__(self):
         return self.stripe_price_id
+
+
+class Order(models.Model):
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(verbose_name='Количество')

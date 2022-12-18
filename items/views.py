@@ -6,7 +6,7 @@ from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
-from items.models import Item, Price
+from items.models import Item, Price, Order
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -26,6 +26,12 @@ def get_item(request, item_id):
         'item': item,
         'price': price,
     }
+    return render(request, template, context)
+
+def order(request):
+    template = 'items/order.html'
+    order = Order.objects.all()
+    context = {'order': order}
     return render(request, template, context)
 
 
@@ -57,3 +63,14 @@ def buy(request, item_id, quantity=1):
         'session_id': session.id,
         'stripe_public_key': settings.STRIPE_PUBLIC_KEY
     })
+
+def add_order(request):
+    product_id = int(request.GET.get('product_id'))
+    quantity = int(request.GET.get('quantity'))
+    if Item.objects.get(id=product_id):
+        Order.objects.create(item_id=product_id, quantity=quantity)
+        return JsonResponse({'status': 'Added to order'})
+    else:
+        return JsonResponse({'status': 'Error'})
+
+

@@ -1,39 +1,8 @@
-{% load static %}
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% extends 'items/index.html' %}
 
-    <title>Магазин</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="{% static 'narrow-jumbotron.css' %}" rel="stylesheet">
-  </head>
-
-  <body>
-
-    <div class="container">
-      <div class="header clearfix">
-        <nav>
-          <ul class="nav nav-pills float-right">
-            <li class="nav-item">
-              <a class="nav-link active" href="/item/">Все товары</a>
-            </li>
-          </ul>
-        </nav>
-        <h3 class="text-muted">Магазин</h3>
-      </div>
-
+{% block content %}
       <div class="jumbotron">
-        <h1 class="display-3">Спасибо за покупку</h1>
+        <h1 class="display-3">Thanks for buying</h1>
       </div>
 
-      <footer class="footer">
-        <p>&copy; Магазин MegaMarket 2022</p>
-      </footer>
-
-  </body>
-</html>
+{% endblock %}
