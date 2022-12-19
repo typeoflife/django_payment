@@ -1,8 +1,7 @@
 import json
-
 import stripe
 from django.conf import settings
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
@@ -28,10 +27,12 @@ def get_item(request, item_id):
     }
     return render(request, template, context)
 
+
 def order(request):
     template = 'items/order.html'
     order = Order.objects.all()
-    context = {'order': order}
+    item = Item.objects.all()
+    context = {'order': order, 'item': item}
     return render(request, template, context)
 
 
@@ -64,6 +65,26 @@ def buy(request, item_id, quantity=1):
         'stripe_public_key': settings.STRIPE_PUBLIC_KEY
     })
 
+
+@csrf_exempt
+def confirm_order(request):
+    order = Order.objects.all().values()
+    line_items = [{'price': Price.objects.get(item=position['item_id']),
+                   'quantity': position['quantity']} for position in order]
+    session = stripe.checkout.Session.create(
+        payment_method_types=['card'],
+        line_items=line_items,
+        mode='payment',
+        success_url=request.build_absolute_uri(reverse('thanks')),
+        cancel_url=request.build_absolute_uri(reverse('index')),
+    )
+
+    return JsonResponse({
+        'session_id': session.id,
+        'stripe_public_key': settings.STRIPE_PUBLIC_KEY
+    })
+
+
 def add_order(request):
     product_id = int(request.GET.get('product_id'))
     quantity = int(request.GET.get('quantity'))
@@ -72,5 +93,3 @@ def add_order(request):
         return JsonResponse({'status': 'Added to order'})
     else:
         return JsonResponse({'status': 'Error'})
-
-

@@ -1,6 +1,5 @@
 {% extends 'items/index.html' %}
 {% load static %}
-
 {% block content %}
 
     <div class="jumbotron">
@@ -8,13 +7,14 @@
       <div class="orders">
         {% for position in order %}
         <li class="my-row" style="  display:flex;">
-            <p class="desc"> Item: {{ position.item_id }} Quantity: {{ position.quantity }}</p>
+            <p class="desc"> Item: {{ position.item }} Quantity: {{ position.quantity }}
+            Total cost: {{ position.total_cost }}</p>
             {% empty %}
         <li>No orders</li>
           {% endfor %}
         </li>
       </div>
-      <button id="buy-button" class="btn btn-primary">Place an order</button>
+      <button id="confirm-order" class="btn btn-primary">Confirm order</button>
     </div>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -22,5 +22,25 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
     <script src="{% static 'custom.js' %}"></script>
     <script src="https://js.stripe.com/v3/"></script>
+
+
+    <script>
+
+
+      const confirm_order = document.querySelector('#confirm-order')
+      confirm_order.addEventListener('click', event => {
+        fetch('/confirm_order/', {method: 'GET'})
+        .then((result) => { return result.json() })
+        .then((data) => {
+          var stripe = Stripe(data.stripe_public_key);
+
+          stripe.redirectToCheckout({sessionId: data.session_id})
+          .then(function (result) {
+          });
+        })
+      })
+
+
+    </script>
 
 {% endblock %}
